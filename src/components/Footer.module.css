@@ -1,0 +1,57 @@
+.footer {
+  margin-top: 4rem;
+  background-color: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.sponsorBanner {
+  background-color: var(--background);
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.sponsorTitle {
+  text-align: center;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sponsorLogos {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.sponsorLogo {
+  padding: 1rem 2rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-normal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 150px;
+}
+
+.sponsorLogo:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  color: var(--primary);
+  border-color: var(--primary-hover);
+}
+
+.footerBottom {
+  padding: 2.5rem 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
