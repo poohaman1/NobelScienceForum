@@ -28,11 +28,12 @@ export async function checkAuth() {
 export async function addNotice(formData: FormData) {
   if (!(await checkAuth()) || !supabase) return { success: false, error: 'Database Not Connected' }
   const title = formData.get('title') as string
+  const content = formData.get('content') as string || null
   const isNew = formData.get('isNew') === 'on'
 
   if (!title) return { success: false, error: 'Title is required' }
   
-  const { error } = await supabase.from('notices').insert([{ title, is_new: isNew }])
+  const { error } = await supabase.from('notices').insert([{ title, content, is_new: isNew }])
   if (error) return { success: false, error: error.message }
   
   revalidatePath('/news')
@@ -51,6 +52,24 @@ export async function addNews(formData: FormData) {
   const { error } = await supabase.from('news_articles').insert([{ title, summary, url }])
   if (error) return { success: false, error: error.message }
   
+  revalidatePath('/news/articles')
+  revalidatePath('/admin')
+  return { success: true }
+}
+
+export async function deleteNotice(id: string) {
+  if (!(await checkAuth()) || !supabase) return { success: false, error: 'Database Not Connected' }
+  const { error } = await supabase.from('notices').delete().eq('id', id)
+  if (error) return { success: false, error: error.message }
+  revalidatePath('/news')
+  revalidatePath('/admin')
+  return { success: true }
+}
+
+export async function deleteNews(id: string) {
+  if (!(await checkAuth()) || !supabase) return { success: false, error: 'Database Not Connected' }
+  const { error } = await supabase.from('news_articles').delete().eq('id', id)
+  if (error) return { success: false, error: error.message }
   revalidatePath('/news/articles')
   revalidatePath('/admin')
   return { success: true }

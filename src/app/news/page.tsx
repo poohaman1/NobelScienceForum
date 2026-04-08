@@ -30,13 +30,20 @@ export default async function NewsPage() {
         {notices.map(notice => {
           const dateStr = new Date(notice.created_at).toLocaleDateString('ko-KR');
           return (
-            <div key={notice.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.5rem', background: 'var(--surface)', borderBottom: '1px solid var(--border)', borderRadius: 'var(--radius-md)', transition: 'background 0.2s', cursor: 'pointer' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                {notice.is_new && <span style={{ background: 'var(--secondary)', color: '#fff', fontSize: '0.75rem', padding: '0.2rem 0.5rem', borderRadius: '4px', fontWeight: 600 }}>NEW</span>}
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 500 }}>{notice.title}</h3>
-              </div>
-              <span style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>{dateStr}</span>
-            </div>
+            <details key={notice.id} style={{ background: 'var(--surface)', borderBottom: '1px solid var(--border)', borderRadius: 'var(--radius-md)', padding: '1rem 1.5rem', transition: 'background 0.2s', cursor: 'pointer' }}>
+              <summary style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', outline: 'none' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  {notice.is_new && <span style={{ background: 'var(--secondary)', color: '#fff', fontSize: '0.75rem', padding: '0.2rem 0.5rem', borderRadius: '4px', fontWeight: 600 }}>NEW</span>}
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: 500, margin: 0 }}>{notice.title}</h3>
+                </div>
+                <span style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>{dateStr}</span>
+              </summary>
+              {notice.content ? (
+                <div style={{ marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: '1px dashed var(--border)', lineHeight: '1.6', color: 'var(--text-muted)' }} dangerouslySetInnerHTML={{ __html: notice.content }} />
+              ) : (
+                <div style={{ marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: '1px dashed var(--border)', lineHeight: '1.6', color: 'var(--text-muted)' }}>본문 내용이 없습니다.</div>
+              )}
+            </details>
           );
         })}
       </div>

@@ -1,10 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { addNotice, addNews, logoutAdmin } from './actions'
+import { addNotice, addNews, deleteNotice, deleteNews, logoutAdmin } from './actions'
 import { useRouter } from 'next/navigation'
 
-export default function AdminDashboard() {
+export default function AdminDashboard({ notices = [], news = [] }: { notices: any[], news: any[] }) {
   const router = useRouter()
 
   const [newsUrl, setNewsUrl] = useState('')
@@ -15,7 +15,7 @@ export default function AdminDashboard() {
   const handleAction = async (actionFn: any, formData: FormData) => {
     const res = await actionFn(formData)
     if (res.success) {
-      alert('성공적으로 등록되었습니다.')
+      alert('성공적으로 로직이 수행되었습니다.')
       // 폼 초기화
       if (actionFn === addNews) {
         setNewsUrl('')
@@ -24,6 +24,17 @@ export default function AdminDashboard() {
       }
     } else {
       alert('오류 발생: ' + res.error)
+    }
+  }
+
+  const handleDelete = async (deleteFn: any, id: string) => {
+    if (!confirm('정말로 삭제하시겠습니까?')) return
+    const res = await deleteFn(id)
+    if (res.success) {
+      alert('삭제되었습니다.')
+      router.refresh()
+    } else {
+      alert('삭제 실패: ' + res.error)
     }
   }
 
@@ -71,6 +82,10 @@ export default function AdminDashboard() {
               <input name="title" required style={{ width: '100%', padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--border)' }} />
             </div>
             <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>본문 (HTML 입력 가능)</label>
+              <textarea name="content" rows={5} style={{ width: '100%', padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--border)', resize: 'vertical' }} placeholder="<p>여기에 본문 내용을 입력하세요.</p>"></textarea>
+            </div>
+            <div>
               <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
                 <input type="checkbox" name="isNew" defaultChecked />
                 <span>NEW 표시 설정</span>
@@ -103,6 +118,38 @@ export default function AdminDashboard() {
             </div>
             <button type="submit" className="btn-primary" style={{ marginTop: '0.5rem' }}>뉴스 등록</button>
           </form>
+        </div>
+      </div>
+
+      <div style={{ marginTop: '3rem' }}>
+        <h2 className="title-h2">기존 공지사항 및 뉴스 관리</h2>
+        
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '1.5rem' }}>
+          <div>
+            <h3 style={{ borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem', marginBottom: '1rem' }}>공지사항 목록</h3>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              {notices.map((n) => (
+                <li key={n.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem', background: 'var(--surface-light)', borderRadius: '4px' }}>
+                  <span>{n.title} {n.is_new && <span style={{ color: 'red', fontSize: '0.75rem' }}>NEW</span>}</span>
+                  <button onClick={() => handleDelete(deleteNotice, n.id)} className="btn-outline" style={{ padding: '0.25rem 0.5rem', fontSize: '0.8rem', color: 'tomato', borderColor: 'tomato' }}>삭제</button>
+                </li>
+              ))}
+              {notices.length === 0 && <li style={{ color: 'var(--text-muted)' }}>공지사항이 없습니다.</li>}
+            </ul>
+          </div>
+
+          <div>
+            <h3 style={{ borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem', marginBottom: '1rem' }}>관련 뉴스 목록</h3>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              {news.map((n) => (
+                <li key={n.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem', background: 'var(--surface-light)', borderRadius: '4px' }}>
+                  <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginRight: '1rem' }}>{n.title}</div>
+                  <button onClick={() => handleDelete(deleteNews, n.id)} className="btn-outline" style={{ padding: '0.25rem 0.5rem', fontSize: '0.8rem', color: 'tomato', borderColor: 'tomato', flexShrink: 0 }}>삭제</button>
+                </li>
+              ))}
+              {news.length === 0 && <li style={{ color: 'var(--text-muted)' }}>뉴스가 없습니다.</li>}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
