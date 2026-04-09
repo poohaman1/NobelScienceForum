@@ -28,7 +28,7 @@ export default function AdminDashboard({ notices = [], news = [] }: { notices: a
   }
 
   const handleDelete = async (deleteFn: any, id: string) => {
-    if (!confirm('정말로 삭제하시겠습니까?')) return
+    if (!confirm('삭제하시겠습니까?')) return
     const res = await deleteFn(id)
     if (res.success) {
       alert('삭제되었습니다.')
