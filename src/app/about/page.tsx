@@ -85,14 +85,16 @@ export default function AboutPage() {
       </section>
 
       <section>
-        <h2 className="title-h2">주관 및 파트너사</h2>
-        <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.975rem', lineHeight: '1.6', wordBreak: 'keep-all' }}>
-          본 포럼은 과학기술의 발전과 인류의 지속 가능한 미래를 지지하는 파트너들과 함께합니다.
-        </p>
-        <div className={styles.partnerGrid}>
-          {['노벨사이언스', '노벨사이언스위원회', '한국노벨과학문화연구원'].map(partner => (
-            <div key={partner} className={styles.partnerLogo}>{partner}</div>
-          ))}
+        <h2 className="title-h2">주최 및 주관</h2>
+        <div className={styles.organizerGrid}>
+          <div className={styles.organizerItem}>
+            <span className={styles.organizerLabel}>주최</span>
+            <p className={styles.organizerName}>한국노벨사이언스위원회</p>
+          </div>
+          <div className={styles.organizerItem}>
+            <span className={styles.organizerLabel}>주관</span>
+            <p className={styles.organizerName}>노벨사이언스 · 노벨사이언스포럼</p>
+          </div>
         </div>
       </section>
     </div>

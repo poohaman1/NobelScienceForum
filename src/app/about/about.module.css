@@ -105,32 +105,49 @@
   line-height: 1.6;
 }
 
-/* 파트너사 그리드 */
-.partnerGrid {
+/* 주최 및 주관 섹션 */
+.organizerGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-top: 1rem;
 }
 
 @media (min-width: 640px) {
-  .partnerGrid {
-    grid-template-columns: repeat(3, 1fr);
+  .organizerGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-.partnerLogo {
-  padding: 1.25rem;
+.organizerItem {
+  padding: 1.5rem;
+  background-color: var(--surface-hover);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  background: var(--surface-hover);
-  font-weight: 600;
-  color: var(--text-muted);
   text-align: center;
-  font-size: 0.9rem;
   transition: var(--transition-normal);
 }
 
-.partnerLogo:hover {
+.organizerItem:hover {
   border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.organizerLabel {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
   color: var(--primary);
+  background-color: var(--primary-light);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+
+.organizerName {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+  word-break: keep-all;
 }
