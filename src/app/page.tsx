@@ -7,7 +7,7 @@ export default function Home() {
       <section className={styles.heroSection}>
         <div className={styles.heroOverlay}></div>
         <div className={`container ${styles.heroContent}`}>
-          <span className={styles.categoryBadge}>2026 Nobel Science Forum</span>
+          <span className={styles.categoryBadge}>노벨사이언스 창간 10주년 기념</span>
           <h1 className={styles.heroTitle}>과학과 혁신으로<br/>내일을 엽니다</h1>
           <p className={styles.heroDescription}>
             글로벌 석학들과 함께 인류의 당면 과제를 고민하고, 미래 과학의 나아갈 길을 제시하는 최고의 지식 플랫폼에 여러분을 초대합니다.

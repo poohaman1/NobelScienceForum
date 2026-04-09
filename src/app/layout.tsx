@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -8,6 +8,13 @@ export const metadata: Metadata = {
   description: "글로벌 과학 기술의 미래를 논의하는 노벨사이언스 포럼",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#1e3a8a",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -15,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body>
+      <body suppressHydrationWarning>
         <Header />
         <main>{children}</main>
         <Footer />

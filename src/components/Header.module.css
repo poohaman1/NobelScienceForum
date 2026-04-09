@@ -1,5 +1,5 @@
 .header {
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   position: sticky;
@@ -9,15 +9,12 @@
   transition: var(--transition-normal);
 }
 
-:global([data-theme='dark']) .header {
-  background-color: rgba(30, 41, 59, 0.85);
-}
-
 .headerContent {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 4.5rem;
+  position: relative;
 }
 
 .logoText {
@@ -28,10 +25,63 @@
   transition: var(--transition-normal);
 }
 
+@media (max-width: 480px) {
+  .logoText {
+    font-size: 1.05rem;
+  }
+}
+
 .logoText:hover {
   opacity: 0.8;
 }
 
+/* 햄버거 버튼: 768px 미만에서만 표시 */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: var(--radius-md);
+  transition: var(--transition-normal);
+  z-index: 110;
+}
+
+.hamburger:hover {
+  background-color: var(--surface-hover);
+}
+
+.bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: var(--primary);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
+}
+
+/* 햄버거 → X 애니메이션 */
+.hamburgerOpen .bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburgerOpen .bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburgerOpen .bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* 데스크탑 네비게이션 */
 .nav {
   display: flex;
   gap: 2rem;
@@ -43,6 +93,9 @@
   font-size: 0.95rem;
   color: var(--text-main);
   position: relative;
+  min-height: unset;
+  display: inline-flex;
+  align-items: center;
 }
 
 .navLink::after {
@@ -78,4 +131,87 @@
 
 .adminLink:hover {
   background-color: var(--border);
+}
+
+/* 오버레이 */
+.overlay {
+  display: none;
+}
+
+/* ===== 모바일 (768px 미만) ===== */
+@media (max-width: 767px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    border-bottom: 2px solid var(--primary);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+    /* 기본 숨김 */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 105;
+  }
+
+  .navOpen {
+    max-height: 400px;
+  }
+
+  .navLink {
+    display: block;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border);
+    min-height: 52px;
+    align-items: center;
+  }
+
+  .navLink::after {
+    display: none;
+  }
+
+  .navLink:hover {
+    background-color: var(--surface-hover);
+    color: var(--primary);
+  }
+
+  .adminLink {
+    margin: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    text-align: center;
+    justify-content: center;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    background-color: transparent;
+  }
+
+  .adminLink:hover {
+    background-color: var(--primary);
+    color: white;
+  }
+
+  .overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 99;
+    animation: fadeIn 0.2s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 }

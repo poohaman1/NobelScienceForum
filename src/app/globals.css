@@ -33,20 +33,8 @@
   --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0f172a;
-    --surface: #1e293b;
-    --surface-hover: #334155;
-    
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    
-    --border: #334155;
-    
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3);
-  }
-}
+/* 다크모드 자동 적용 비활성화 - 모바일 포함 전체 환경에서 라이트 모드 단일 사용 */
+/* @media (prefers-color-scheme: dark) { ... } 제거로 색상 혼선 방지 */
 
 html {
   height: 100%;
@@ -63,9 +51,12 @@ body {
   flex-direction: column;
   color: var(--text-main);
   background: var(--background);
-  font-family: 'Pretendard Variable', -apple-system, sans-serif;
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* 모바일 텍스트 크기 자동 조정 방지 */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 * {
@@ -78,6 +69,10 @@ a {
   color: inherit;
   text-decoration: none;
   transition: var(--transition-normal);
+  /* 터치 영역 최소 44px 확보 */
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 main {
@@ -92,6 +87,12 @@ main {
   padding: 0 1.5rem;
 }
 
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+}
+
 .title-h1 {
   font-size: 2.5rem;
   font-weight: 800;
@@ -101,11 +102,30 @@ main {
   color: var(--primary);
 }
 
+@media (max-width: 768px) {
+  .title-h1 {
+    font-size: 1.875rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-h1 {
+    font-size: 1.625rem;
+  }
+}
+
 .title-h2 {
   font-size: 1.875rem;
   font-weight: 700;
   line-height: 1.3;
   margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .title-h2 {
+    font-size: 1.375rem;
+  }
 }
 
 .btn-primary {
@@ -120,6 +140,8 @@ main {
   border: none;
   cursor: pointer;
   transition: var(--transition-normal);
+  min-height: 44px;
+  font-size: 1rem;
 }
 
 .btn-primary:hover {
@@ -140,6 +162,8 @@ main {
   border: 1px solid var(--primary);
   cursor: pointer;
   transition: var(--transition-normal);
+  min-height: 44px;
+  font-size: 1rem;
 }
 
 .btn-outline:hover {
@@ -154,6 +178,13 @@ main {
   border: 1px solid var(--border);
   padding: 1.5rem;
   transition: var(--transition-normal);
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 1.25rem 1rem;
+    border-radius: var(--radius-md);
+  }
 }
 
 .card:hover {
