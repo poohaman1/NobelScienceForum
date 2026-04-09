@@ -36,10 +36,7 @@ export async function POST(req: Request) {
     // 3. Google 공식 SDK를 이용한 AI 요약 호출
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ 
-      model: "gemini-1.5-flash",
-      generationConfig: {
-        responseMimeType: "application/json",
-      }
+      model: "gemini-1.5-flash-latest"
     });
     
     const prompt = `다음 기사 원문을 바탕으로 "제목(title)"과 "3~5줄 분량의 요약(summary)"을 추출해주세요.
@@ -74,7 +71,15 @@ ${truncatedText}
     if (!result) throw new Error('AI 응답 생성 실패');
 
     const response = await result.response;
-    const resultText = response.text();
+    let resultText = response.text();
+    
+    // 마크다운 코드 블록 제거 로직 추가
+    if (resultText.includes('```json')) {
+      resultText = resultText.split('```json')[1].split('```')[0].trim();
+    } else if (resultText.includes('```')) {
+      resultText = resultText.split('```')[1].split('```')[0].trim();
+    }
+
     const resultObj = JSON.parse(resultText);
 
     return NextResponse.json({
