@@ -38,7 +38,7 @@ export default async function ForumPage() {
             <strong>장소</strong>
             <span>
               <a 
-                href="https://map.naver.com/p/entry/place/11674485" 
+                href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%EB%8C%80%ED%95%99%EA%B5%90%20%ED%98%B8%EC%95%94%EA%B5%90%EC%88%98%ED%9A%8C%EA%B4%80/place/1265439418?c=15.00,0,0,0,dh&placePath=/home?bk_query=%EC%84%9C%EC%9A%B8%EB%8C%80%ED%95%99%EA%B5%90%20%ED%98%B8%EC%95%94%EA%B5%90%EC%88%98%ED%9A%8C%EA%B4%80&entry=bmp&from=map&fromPanelNum=2&timestamp=202604100102&locale=ko&svcName=map_pcv5&searchText=%EC%84%9C%EC%9A%B8%EB%8C%80%ED%95%99%EA%B5%90%20%ED%98%B8%EC%95%94%EA%B5%90%EC%88%98%ED%9A%8C%EA%B4%80" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 style={{ color: 'var(--primary)', textDecoration: 'underline', fontWeight: 600 }}
