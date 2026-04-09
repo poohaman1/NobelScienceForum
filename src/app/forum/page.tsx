@@ -13,8 +13,8 @@ export default async function ForumPage() {
   if (!forum) {
     forum = {
       year: 2026,
-      title: "노벨사이언스 창간 10주년 기념 조찬포럼",
-      theme: "AI (Artificial Intelligence)",
+      title: "2026 노벨사이언스 포럼",
+      theme: "인공지능과 인류의 미래",
     };
   }
 
@@ -34,7 +34,19 @@ export default async function ForumPage() {
         <h2 className="title-h2">주제: {forum.theme}</h2>
         <div className={styles.infoGrid}>
           <p><strong>일시</strong><span>2026년 6월 17일 (수) 오후 2:00 ~ 5:30</span></p>
-          <p><strong>장소</strong><span>서울대학교 호암교수회관 무궁화홀</span></p>
+          <p>
+            <strong>장소</strong>
+            <span>
+              <a 
+                href="https://map.naver.com/p/entry/place/11674485" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style={{ color: 'var(--primary)', textDecoration: 'underline', fontWeight: 600 }}
+              >
+                서울대학교 호암교수회관 무궁화홀
+              </a>
+            </span>
+          </p>
           <p><strong>주최</strong><span>한국노벨사이언스위원회</span></p>
           <p><strong>주관</strong><span>노벨사이언스 · 노벨사이언스포럼</span></p>
         </div>
