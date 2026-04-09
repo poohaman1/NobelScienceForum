@@ -3,69 +3,65 @@
   border-top: 1px solid var(--border);
 }
 
-/* ===== 후원사 배너 ===== */
-.sponsorBanner {
+/* ===== 주최 및 주관 섹션 ===== */
+.organizerSection {
   background-color: var(--background);
-  padding: 2.5rem 0;
+  padding: 3rem 0;
   border-bottom: 1px solid var(--border);
 }
 
-@media (max-width: 767px) {
-  .sponsorBanner {
-    padding: 2rem 0;
-  }
-}
-
-.sponsorTitle {
-  text-align: center;
-  font-weight: 700;
-  color: var(--text-muted);
-  margin-bottom: 1.5rem;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.sponsorLogos {
+.organizerGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  max-width: 600px;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 800px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-@media (min-width: 640px) {
-  .sponsorLogos {
-    grid-template-columns: repeat(4, 1fr);
-    max-width: 900px;
+@media (min-width: 768px) {
+  .organizerGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
   }
 }
 
-.sponsorLogo {
-  padding: 0.875rem 1rem;
+.organizerItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem;
   background-color: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  color: var(--text-muted);
-  font-weight: 600;
-  font-size: 0.875rem;
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   transition: var(--transition-normal);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  min-height: 54px;
-  text-decoration: none;
 }
 
-.sponsorLogo:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  color: var(--primary);
+.organizerItem:hover {
   border-color: var(--primary);
-  background-color: var(--surface-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.organizerLabel {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--primary);
+  background-color: var(--primary-light);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.organizerName {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-align: center;
+  word-break: keep-all;
 }
 
 /* 빈 슬롯 스타일 */

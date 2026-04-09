@@ -44,6 +44,6 @@ INSERT INTO news_articles (title, summary, url) VALUES
   ('제3회 포럼 성공적 마무리... 글로벌 과학계 호평', '기후변화를 주제로 열렸던 작년 포럼의 주요 세션 영상이 오늘 아카이브를 통해 공개되었다. 세계 여러 곳에서 10만 명 이상의 온라인 참여자가 참석했던 이번 행사는...', 'https://example.com/news/2');
 
 INSERT INTO forums (year, title, theme, is_current) VALUES
-  (2026, '2026 노벨사이언스 포럼', '인공지능과 인류의 미래', true),
-  (2025, '2025 노벨사이언스 포럼', '기후변화와 지속가능한 과학', false),
+  (2026, '노벨사이언스 창간 10주년 기념 조찬포럼', 'AI (Artificial Intelligence)', true),
+  (2025, '2025 대한민국 노벨사이언스 대상 시상식 & 노벨사이언스포럼', '우리나라 과학기술의 위상과 노벨과학상', false),
   (2024, '2024 노벨사이언스 포럼', '우주 탐사와 신물질', false);

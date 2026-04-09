@@ -52,14 +52,16 @@ export default function Home() {
           <h2 className="title-h2 text-center" style={{ textAlign: 'center' }}>운영위원회</h2>
           <p className={styles.sectionDesc}>비전과 혁신을 이끄는 리더들</p>
           <div className={styles.grid3}>
-            {[1, 2, 3].map((item) => (
-              <div key={item} className="card">
-                <div className={styles.memberAvatar}></div>
-                <h3 className={styles.memberName}>김대한 위원장</h3>
-                <p className={styles.memberRole}>한국과학기술원(KAIST) 명예교수</p>
-                <p className={styles.memberBio}>
-                  글로벌 과학 네트워크 구축 및 연구 성과 확산에 기여한 공로로 세계적인 권위를 인정받고 있습니다.
-                </p>
+            {[
+              { name: '조완규 명예회장', role: '서울대학교 18대 총장', bio: '한국한림원 초대 원장 및 국가과학기술유공자회 회장을 역임한 현대 과학계의 거목입니다.' },
+              { name: '조장희 명예회장', role: '고려대학교 석좌교수', bio: 'KAIST 및 미국 University of California 교수를 역임한 세계적인 뇌과학 전문가입니다.' },
+              { name: '이도수 회장', role: '노벨사이언스 대표회장', bio: '노벨사이언스의 편집 및 발행인으로서 과학 대중화와 혁신 생태계 조성에 힘쓰고 있습니다.' }
+            ].map((member, idx) => (
+              <div key={idx} className="card">
+                <div className={styles.memberAvatar}>👤</div>
+                <h3 className={styles.memberName}>{member.name}</h3>
+                <p className={styles.memberRole}>{member.role}</p>
+                <p className={styles.memberBio}>{member.bio}</p>
               </div>
             ))}
           </div>

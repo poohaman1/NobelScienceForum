@@ -6,8 +6,19 @@ import styles from './Header.module.css';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [forumMenuOpen, setForumMenuOpen] = useState(false);
+  
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setForumMenuOpen(false);
+  };
 
-  const closeMenu = () => setMenuOpen(false);
+  const toggleForumMenu = (e: React.MouseEvent) => {
+    if (window.innerWidth < 768) {
+      e.preventDefault();
+      setForumMenuOpen(!forumMenuOpen);
+    }
+  };
 
   return (
     <header className={styles.header}>
@@ -33,7 +44,13 @@ export default function Header() {
         {/* 네비게이션 */}
         <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ''}`}>
           <Link href="/about" className={styles.navLink} onClick={closeMenu}>소개</Link>
-          <Link href="/forum" className={styles.navLink} onClick={closeMenu}>포럼</Link>
+          <div className={styles.navItemDropdown} onMouseEnter={() => window.innerWidth >= 768 && setForumMenuOpen(true)} onMouseLeave={() => window.innerWidth >= 768 && setForumMenuOpen(false)}>
+            <Link href="/forum" className={styles.navLink} onClick={toggleForumMenu}>포럼</Link>
+            <ul className={`${styles.dropdownMenu} ${forumMenuOpen ? styles.dropdownOpen : ''}`}>
+              <li><Link href="/forum" className={styles.dropdownLink} onClick={closeMenu}>올해의 포럼</Link></li>
+              <li><Link href="/forum/archive" className={styles.dropdownLink} onClick={closeMenu}>아카이브</Link></li>
+            </ul>
+          </div>
           <Link href="/news" className={styles.navLink} onClick={closeMenu}>소식</Link>
           <Link href="/admin" className={`${styles.navLink} ${styles.adminLink}`} onClick={closeMenu}>운영자접속</Link>
         </nav>
