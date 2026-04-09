@@ -56,6 +56,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  min-height: 54px;
+  text-decoration: none;
 }
 
 .sponsorLogo:hover {
@@ -63,6 +65,17 @@
   box-shadow: var(--shadow-md);
   color: var(--primary);
   border-color: var(--primary);
+  background-color: var(--surface-hover);
+}
+
+/* 빈 슬롯 스타일 */
+.sponsorLogoEmpty {
+  padding: 0.875rem 1rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  opacity: 0.2; /* 희미하게 표시 (빈 슬롯임을 암시) */
+  min-height: 54px;
 }
 
 /* ===== 푸터 하단 ===== */
