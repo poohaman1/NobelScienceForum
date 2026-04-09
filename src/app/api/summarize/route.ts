@@ -36,7 +36,7 @@ export async function POST(req: Request) {
     // 토큰 한계를 막기 위해 일부 텍스트만 제한
     const truncatedText = textContent.slice(0, 8000);
 
-    // 3. Gemini 3.1 Flash API 호출
+    // 3. Gemini 1.5 Flash API 호출 (안정적인 모델로 변경)
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     
     // JSON 형식을 보장하기 위해 강력한 프롬프트 작성
@@ -54,13 +54,32 @@ export async function POST(req: Request) {
 ${truncatedText}
 `;
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
-      contents: prompt,
-      config: {
-        responseMimeType: 'application/json',
+    let response;
+    let retries = 3;
+    let delay = 1000;
+
+    // 일시적인 503 에러 대응을 위한 재시도 로직
+    for (let i = 0; i < retries; i++) {
+      try {
+        response = await ai.models.generateContent({
+          model: 'gemini-1.5-flash',
+          contents: prompt,
+          config: {
+            responseMimeType: 'application/json',
+          }
+        });
+        break; // 성공 시 루프 탈출
+      } catch (err: any) {
+        if (i === retries - 1) throw err; // 마지막 시도 실패 시 에러 던짐
+        console.warn(`AI 요약 재시도 (${i + 1}/${retries}):`, err.message);
+        await new Promise(resolve => setTimeout(resolve, delay));
+        delay *= 2; // 지수 백오프
       }
-    });
+    }
+
+    if (!response) {
+      throw new Error('AI 응답을 생성하지 못했습니다.');
+    }
 
     const resultText = response.text || "{}";
     const resultObj = JSON.parse(resultText);
